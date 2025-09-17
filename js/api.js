@@ -85,23 +85,30 @@ async function fetchWordPressData(baseURL) {
     if (!info.rest_base) continue;
 
     const postType = info.rest_base;
-    const items = await fetchJSON(
-      `${baseURL}${window.wpRestApiBasePath}wp/v2/${postType}?per_page=100`
-    );
 
-    if (!items || items.length === 0) continue;
+    try {
+      const items = await fetchJSON(
+        `${baseURL}${window.wpRestApiBasePath}wp/v2/${postType}?per_page=100`
+      );
 
-    const sectionData = {
-      postType,
-      count: items.length,
-      items: items.filter(item => item.link).map(item => ({
-        url: item.link,
-        title: item.title ? item.title.rendered : '',
-        id: item.id
-      }))
-    };
+      if (!items || items.length === 0) continue;
 
-    urlsData.push(sectionData);
+      const sectionData = {
+        postType,
+        count: items.length,
+        items: items.filter(item => item.link).map(item => ({
+          url: item.link,
+          title: item.title ? item.title.rendered : '',
+          id: item.id
+        }))
+      };
+
+      urlsData.push(sectionData);
+    } catch (error) {
+      console.log(`[DEBUG] Skipping post type '${postType}' due to error:`, error.message);
+      // Continue with other post types instead of failing completely
+      continue;
+    }
   }
 
   return urlsData;
