@@ -2,85 +2,7 @@
 <html>
 <head>
   <title>WP URL Grabber</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      padding: 10px;
-      width: 320px;
-      background-color: #f9f9f9;
-    }
-    h3 {
-      margin: 10px 0 5px;
-      font-size: 16px;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 4px;
-    }
-    a {
-      display: block;
-      color: #0366d6;
-      text-decoration: none;
-      margin-bottom: 4px;
-      word-break: break-all;
-    }
-    #output {
-      white-space: pre-wrap;
-    }
-    #copyButton {
-      background-color: #0366d6;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-bottom: 10px;
-      font-size: 14px;
-      display: none;
-    }
-    #copyButton:hover {
-      background-color: #0256cc;
-    }
-    #copyButton:active {
-      background-color: #024ea4;
-    }
-    #copyButton.success {
-      background-color: #28a745;
-    }
-    .url-count {
-      font-size: 12px;
-      color: #666;
-      margin-bottom: 5px;
-    }
-    #searchContainer {
-      margin-bottom: 10px;
-      display: none;
-    }
-    #searchInput {
-      width: 100%;
-      padding: 8px 12px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
-    #searchInput:focus {
-      outline: none;
-      border-color: #0366d6;
-      box-shadow: 0 0 0 2px rgba(3, 102, 214, 0.1);
-    }
-    .search-info {
-      font-size: 11px;
-      color: #999;
-      margin-top: 4px;
-    }
-    .hidden {
-      display: none !important;
-    }
-    .highlight {
-      background-color: yellow;
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <button id="copyButton">Copy All URLs</button>
@@ -89,6 +11,10 @@
     <div class="search-info" id="searchInfo"></div>
   </div>
   <div id="output">Loading URLs...</div>
-  <script src="popup.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/dom.js"></script>
+  <script src="js/clipboard.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/popup.js"></script>
 </body>
 </html>
