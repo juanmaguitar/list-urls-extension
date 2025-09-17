@@ -7,19 +7,45 @@ function createUrlCountElement(totalUrls) {
 
 function createSectionElement(postType, items) {
   const section = document.createElement("div");
-  const heading = document.createElement("h3");
-  heading.textContent = `${postType} (${items.length} items)`;
-  section.appendChild(heading);
+  section.className = "url-section";
+
+  const header = document.createElement("div");
+  header.className = "section-header";
+  header.innerHTML = `
+    <span class="toggle-icon">v</span>
+    <span class="section-title">${postType} (${items.length} items)</span>
+  `;
+
+  const urlList = document.createElement("div");
+  urlList.className = "url-list";
 
   items.forEach((item) => {
     const a = document.createElement("a");
     a.href = item.url;
     a.target = "_blank";
     a.textContent = item.url;
-    section.appendChild(a);
+    urlList.appendChild(a);
   });
 
+  header.addEventListener('click', () => toggleSection(section));
+
+  section.appendChild(header);
+  section.appendChild(urlList);
+
   return section;
+}
+
+function toggleSection(section) {
+  const urlList = section.querySelector('.url-list');
+  const toggleIcon = section.querySelector('.toggle-icon');
+
+  if (urlList.classList.contains('collapsed')) {
+    urlList.classList.remove('collapsed');
+    toggleIcon.textContent = 'v';
+  } else {
+    urlList.classList.add('collapsed');
+    toggleIcon.textContent = '>';
+  }
 }
 
 function renderUrlsData(urlsData) {

@@ -6,9 +6,10 @@ A Chrome extension that fetches all public URLs from WordPress sites using the W
 
 - **Auto-detection**: Automatically detects WordPress sites and their REST API endpoints
 - **Comprehensive URL extraction**: Fetches URLs from all available post types (posts, pages, custom post types)
-- **Search & Filter**: Real-time search functionality with highlighting
+- **Collapsible sections**: Click post type headers to hide/show URL lists while keeping counts visible
+- **Search & Filter**: Real-time search functionality with highlighting and auto-expand on matches
 - **Easy copying**: Copy all URLs or filtered results to clipboard with one click
-- **Clean interface**: Organized display grouped by post type with URL counts
+- **Clean interface**: Organized display grouped by post type with URL counts and smooth animations
 
 ## Installation
 
@@ -25,9 +26,18 @@ A Chrome extension that fetches all public URLs from WordPress sites using the W
 3. The extension will:
    - Detect if the site is WordPress
    - Fetch all available post types and their URLs
-   - Display them organized by type (posts, pages, etc.)
-4. Use the search box to filter URLs by keyword
-5. Click "Copy All URLs" or "Copy Filtered URLs" to copy to clipboard
+   - Display them organized by collapsible sections (posts, pages, etc.)
+4. **Organize your view:**
+   - Click any section header to collapse/expand URL lists
+   - Keep sections collapsed to focus on specific post types
+   - Headers always show post type name and total count
+5. **Search and filter:**
+   - Use the search box to filter URLs by keyword
+   - Matching sections automatically expand to show results
+   - Search highlights matching text in yellow
+6. **Copy URLs:**
+   - Click "Copy All URLs" or "Copy Filtered URLs" to copy to clipboard
+   - Copying works regardless of which sections are collapsed
 
 ## Project Structure
 
@@ -53,8 +63,9 @@ A Chrome extension that fetches all public URLs from WordPress sites using the W
   - `fetchWordPressData()` - Retrieves all post types and their URLs
 
 - **dom.js**: Manages DOM creation and updates
-  - Element creation utilities
+  - Element creation utilities with collapsible sections
   - Rendering functions for URL data
+  - Toggle functionality for expand/collapse
   - Error and loading state management
 
 - **clipboard.js**: Handles copying functionality
@@ -63,8 +74,9 @@ A Chrome extension that fetches all public URLs from WordPress sites using the W
   - Button state management
 
 - **search.js**: Implements search and filtering
-  - Real-time URL filtering
+  - Real-time URL filtering with collapsible section support
   - Text highlighting for search matches
+  - Auto-expand sections with matching results
   - Search result statistics
 
 - **popup.js**: Main application orchestration
@@ -93,6 +105,8 @@ The extension works with:
 - **Architecture**: Modular JavaScript with single-responsibility files
 - **No external dependencies**: Pure vanilla JavaScript
 - **CORS handling**: Uses `credentials: "omit"` for cross-origin requests
+- **UI/UX**: CSS animations and transitions for smooth collapsible interactions
+- **State management**: Preserves user collapse/expand preferences during search operations
 
 ## Error Handling
 
@@ -108,10 +122,26 @@ The extension provides helpful error messages for common issues:
 - Chrome (primary target)
 - Chromium-based browsers (Edge, Brave, etc.)
 
+## UI Features
+
+### Collapsible Sections
+- **Toggle indicators**: `v` (expanded) and `>` (collapsed) icons
+- **Click interaction**: Click anywhere on section headers to toggle
+- **Smooth animations**: CSS transitions for expanding/collapsing
+- **Visual feedback**: Hover effects on section headers
+- **Persistent state**: Manual collapse/expand states maintained during filtering
+
+### Search Integration
+- **Smart expansion**: Sections with matching URLs automatically expand when searching
+- **Highlight matches**: Search terms highlighted in yellow
+- **Dynamic counts**: Button text updates to show filtered result counts
+- **Preserve state**: User-collapsed sections remain collapsed unless they contain matches
+
 ## Contributing
 
 The codebase is organized for easy maintenance:
 1. Each JavaScript file has a single responsibility
-2. CSS is separated from HTML
+2. CSS is separated from HTML in organized folder structure
 3. Clear separation between API logic, UI logic, and utilities
 4. Comprehensive error handling and debugging logs
+5. Modular design allows easy feature additions and modifications

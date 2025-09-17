@@ -42,18 +42,21 @@ function getFilteredUrlsForCopy() {
     return window.allUrls || [];
   }
 
-  const sections = document.querySelectorAll("#output > div:not(.url-count):not(.hidden)");
+  const sections = document.querySelectorAll(".url-section:not(.hidden)");
   sections.forEach(section => {
-    const heading = section.querySelector('h3');
-    if (heading) {
-      const postType = heading.textContent.split(' (')[0];
+    const sectionTitle = section.querySelector('.section-title');
+    if (sectionTitle) {
+      const postType = sectionTitle.textContent.split(' (')[0];
       urls.push(`\n=== ${postType.toUpperCase()} ===`);
     }
 
-    const sectionLinks = section.querySelectorAll('a:not(.hidden)');
-    sectionLinks.forEach(link => {
-      urls.push(link.textContent);
-    });
+    const urlList = section.querySelector('.url-list');
+    if (urlList) {
+      const sectionLinks = urlList.querySelectorAll('a:not(.hidden)');
+      sectionLinks.forEach(link => {
+        urls.push(link.textContent);
+      });
+    }
   });
 
   return urls;
@@ -85,7 +88,7 @@ function updateCopyButtonText() {
     const totalUrls = (window.allUrlsData || []).length;
     copyButton.textContent = `Copy All URLs (${totalUrls})`;
   } else {
-    const visibleUrls = document.querySelectorAll("#output a:not(.hidden)").length;
+    const visibleUrls = document.querySelectorAll(".url-list a:not(.hidden)").length;
     copyButton.textContent = `Copy Filtered URLs (${visibleUrls})`;
   }
 }

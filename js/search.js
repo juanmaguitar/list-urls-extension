@@ -6,7 +6,7 @@ function highlightSearchTerm(text, searchTerm) {
 function filterUrls() {
   const searchTerm = document.getElementById("searchInput").value.toLowerCase();
   const searchInfo = document.getElementById("searchInfo");
-  const sections = document.querySelectorAll("#output > div:not(.url-count)");
+  const sections = document.querySelectorAll(".url-section");
 
   if (!searchTerm) {
     showAllUrls(sections);
@@ -21,10 +21,13 @@ function filterUrls() {
 function showAllUrls(sections) {
   sections.forEach(section => {
     section.classList.remove("hidden");
-    section.querySelectorAll('a').forEach(link => {
-      link.innerHTML = link.textContent;
-      link.classList.remove("hidden");
-    });
+    const urlList = section.querySelector('.url-list');
+    if (urlList) {
+      urlList.querySelectorAll('a').forEach(link => {
+        link.innerHTML = link.textContent;
+        link.classList.remove("hidden");
+      });
+    }
   });
 }
 
@@ -33,7 +36,10 @@ function filterUrlsBySector(sections, searchTerm) {
   let totalCount = 0;
 
   sections.forEach(section => {
-    const links = section.querySelectorAll('a');
+    const urlList = section.querySelector('.url-list');
+    if (!urlList) return;
+
+    const links = urlList.querySelectorAll('a');
     let sectionHasVisibleLinks = false;
 
     links.forEach(link => {
@@ -53,6 +59,9 @@ function filterUrlsBySector(sections, searchTerm) {
 
     if (sectionHasVisibleLinks) {
       section.classList.remove("hidden");
+      urlList.classList.remove("collapsed");
+      const toggleIcon = section.querySelector('.toggle-icon');
+      if (toggleIcon) toggleIcon.textContent = 'v';
     } else {
       section.classList.add("hidden");
     }
