@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "WordPress URL Grabber",
+  "description": "Fetch all public URLs from WordPress REST API, grouped by post type.",
+  "version": "1.0",
+  "permissions": ["activeTab"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "WP URL Grabber"
+  }
+}
