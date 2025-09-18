@@ -92,23 +92,6 @@ Enables intelligent caching for faster subsequent loads:
 | Validation OFF + Medium Limits + Cache ON | Fast | Good | Good |
 | Validation OFF + Low Limits + Cache ON | Very Fast | Basic | Fair |
 
-## 🎯 Use Cases
-
-### SEO & Content Analysis
-- **Site Audits**: Get complete URL inventory for SEO analysis
-- **Content Gaps**: Identify missing or outdated content across post types
-- **Migration Planning**: Export URL structure before site redesigns
-
-### Development & Testing
-- **QA Testing**: Comprehensive URL list for systematic testing
-- **Broken Link Detection**: Enable validation to find inaccessible URLs
-- **API Integration**: Use URL data for automated processes
-
-### Content Management
-- **Content Inventory**: See complete site structure at a glance
-- **Custom Post Types**: Discover and analyze specialty content
-- **Bulk Operations**: Export URLs for mass content updates
-
 ## 🔧 System Requirements
 
 - **Browser**: Chrome 88+ or Chromium-based browsers (Edge, Brave, etc.)
