@@ -3,9 +3,10 @@
   "name": "WordPress URL Grabber",
   "description": "Fetch all public URLs from WordPress REST API, grouped by post type.",
   "version": "1.0",
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "storage"],
   "action": {
     "default_popup": "popup.html",
     "default_title": "WP URL Grabber"
-  }
+  },
+  "options_page": "options.html"
 }

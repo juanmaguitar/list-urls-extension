@@ -133,3 +133,53 @@ a {
   padding: 0 0 0 20px;
   opacity: 0;
 }
+
+#settingsContainer {
+  margin-bottom: 10px;
+  padding: 8px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 13px;
+  user-select: none;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.checkbox-container:hover {
+  color: #0366d6;
+}
+
+.validation-info {
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  background-color: #f8f9fa;
+  border-radius: 3px;
+  border-left: 3px solid #28a745;
+}
+
+.validation-info.not-validated {
+  border-left-color: #ffc107;
+  background-color: #fff3cd;
+}
+
+.cache-info {
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  background-color: #e3f2fd;
+  border-radius: 3px;
+  border-left: 3px solid #2196f3;
+}

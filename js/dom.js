@@ -48,7 +48,7 @@ function toggleSection(section) {
   }
 }
 
-function renderUrlsData(urlsData) {
+async function renderUrlsData(urlsData, cacheStats = null) {
   const output = document.getElementById("output");
   const container = document.createElement("div");
 
@@ -62,8 +62,39 @@ function renderUrlsData(urlsData) {
 
   const urlCount = createUrlCountElement(totalUrls);
 
+  // Add validation status info
+  const validationInfo = document.createElement("div");
+  const isValidationEnabled = await shouldValidateUrls();
+  validationInfo.className = isValidationEnabled ? "validation-info validated" : "validation-info not-validated";
+  validationInfo.textContent = isValidationEnabled
+    ? "✓ URLs validated for accessibility"
+    : "⚠ URLs not validated (faster but may include broken links)";
+
+  // Add cache status info
+  const cacheInfo = document.createElement("div");
+  cacheInfo.className = "cache-info";
+  const cacheSettings = await getCacheSettings();
+  if (cacheSettings.enableCache) {
+    if (cacheStats && (cacheStats.cachedCount > 0 || cacheStats.freshCount > 0)) {
+      const { cachedCount, freshCount } = cacheStats;
+      if (cachedCount > 0 && freshCount > 0) {
+        cacheInfo.textContent = `💾 Partial cache hit: ${cachedCount} cached, ${freshCount} fresh post types`;
+      } else if (cachedCount > 0 && freshCount === 0) {
+        cacheInfo.textContent = `💾 All results loaded from cache (${cachedCount} post types)`;
+      } else {
+        cacheInfo.textContent = `💾 All results freshly fetched and cached (${freshCount} post types)`;
+      }
+    } else {
+      cacheInfo.textContent = "💾 Results cached for faster future loads";
+    }
+  } else {
+    cacheInfo.textContent = "🔄 Fresh data fetched (caching disabled)";
+  }
+
   output.innerHTML = "";
   output.appendChild(urlCount);
+  output.appendChild(validationInfo);
+  output.appendChild(cacheInfo);
   output.appendChild(container);
 
   return totalUrls;
@@ -74,9 +105,13 @@ function showError(message) {
   output.textContent = message;
 }
 
-function showLoading() {
+function showStatus(message) {
   const output = document.getElementById("output");
-  output.textContent = "Loading URLs...";
+  output.textContent = message;
+}
+
+function showLoading() {
+  showStatus("Loading URLs...");
 }
 
 function showControls(totalUrls) {

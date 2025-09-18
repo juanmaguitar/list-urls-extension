@@ -2,7 +2,7 @@ window.allUrls = [];
 window.allUrlsData = [];
 
 async function main() {
-  showLoading();
+  showStatus("Getting current tab information...");
   window.allUrls = [];
   window.allUrlsData = [];
 
@@ -16,6 +16,7 @@ async function main() {
     console.log(`[DEBUG] Current tab URL: ${tab.url}`);
     console.log(`[DEBUG] Extracted base URL: ${baseURL}`);
 
+    showStatus("Checking if site is WordPress...");
     console.log(`[DEBUG] Checking if site is WordPress...`);
     const isWordPress = await checkWordPressSite(baseURL);
 
@@ -23,10 +24,14 @@ async function main() {
       throw new Error(`This doesn't appear to be a WordPress site. No WordPress REST API detected at ${baseURL}`);
     }
 
+    showStatus("WordPress detected! Fetching post types...");
     console.log(`[DEBUG] WordPress detected! Proceeding to fetch post types...`);
     console.log(`[DEBUG] Using REST API path: ${window.wpRestApiBasePath}`);
 
-    const urlsData = await fetchWordPressData(baseURL);
+    const response = await fetchWordPressData(baseURL);
+    const { urlsData, cacheStats } = response;
+
+    showStatus("Processing and validating URLs...");
 
     window.allUrls = formatUrlsForCopy(urlsData);
     window.allUrlsData = urlsData.flatMap(section =>
@@ -36,7 +41,7 @@ async function main() {
       }))
     );
 
-    const totalUrls = renderUrlsData(urlsData);
+    const totalUrls = await renderUrlsData(urlsData, cacheStats);
     showControls(totalUrls);
 
   } catch (err) {
@@ -60,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyButton = document.getElementById("copyButton");
   copyButton.addEventListener('click', copyFilteredUrls);
   setupSearchEventListeners();
+  setupSettingsEventListeners();
 });
 
 main();

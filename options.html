@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WordPress URL Grabber - Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      padding: 20px;
+      max-width: 600px;
+      background-color: #f9f9f9;
+    }
+
+    .header {
+      border-bottom: 2px solid #0366d6;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+    }
+
+    .header h1 {
+      margin: 0;
+      color: #0366d6;
+      font-size: 24px;
+    }
+
+    .header p {
+      margin: 5px 0 0 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .setting-group {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .setting-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .setting-description {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 14px;
+      user-select: none;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+      margin-right: 10px;
+      cursor: pointer;
+      transform: scale(1.2);
+    }
+
+    .checkbox-container:hover {
+      color: #0366d6;
+    }
+
+    .performance-note {
+      margin-top: 15px;
+      padding: 12px;
+      background-color: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #856404;
+    }
+
+    .performance-note strong {
+      color: #533f03;
+    }
+
+    .status {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 13px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .status.success {
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      opacity: 1;
+    }
+
+    label[for="perPageLimit"] {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    #perPageLimit {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    #perPageLimit:focus {
+      outline: none;
+      border-color: #0366d6;
+      box-shadow: 0 0 0 2px rgba(3, 102, 214, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>WordPress URL Grabber Settings</h1>
+    <p>Configure how the extension processes WordPress URLs</p>
+  </div>
+
+  <div class="setting-group">
+    <div class="setting-title">URL Validation</div>
+    <div class="setting-description">
+      Control whether the extension validates each URL for accessibility before displaying it.
+      This affects both performance and accuracy of the results.
+    </div>
+
+    <label class="checkbox-container">
+      <input type="checkbox" id="validateUrls">
+      <span>Validate URLs before displaying (slower but more accurate)</span>
+    </label>
+
+    <div class="performance-note">
+      <strong>Performance Impact:</strong><br>
+      &bull; <strong>Enabled:</strong> 30-60+ seconds processing time, but filters out broken/private URLs<br>
+      &bull; <strong>Disabled:</strong> 2-5 seconds processing time, but may show inaccessible URLs
+    </div>
+
+    <div id="status" class="status"></div>
+  </div>
+
+  <div class="setting-group">
+    <div class="setting-title">Results Limit</div>
+    <div class="setting-description">
+      Set the maximum number of URLs to fetch per post type. Higher values will show more results but may take longer to process.
+    </div>
+
+    <label for="perPageLimit">URLs per post type:</label>
+    <select id="perPageLimit">
+      <option value="100">100 URLs (fast)</option>
+      <option value="500">500 URLs (moderate)</option>
+      <option value="1000" selected>1000 URLs (recommended)</option>
+      <option value="2000">2000 URLs (slower)</option>
+      <option value="5000">5000 URLs (very slow)</option>
+    </select>
+
+    <div class="performance-note" style="margin-top: 10px;">
+      <strong>Note:</strong> Some WordPress sites may have thousands of posts. Higher limits will fetch more complete results but will take longer to process, especially with URL validation enabled.
+    </div>
+  </div>
+
+  <div class="setting-group">
+    <div class="setting-title">Result Caching</div>
+    <div class="setting-description">
+      Cache results for faster subsequent loads. Cached data will be refreshed automatically after the specified time period.
+    </div>
+
+    <label class="checkbox-container">
+      <input type="checkbox" id="enableCache" checked>
+      <span>Enable result caching</span>
+    </label>
+
+    <div style="margin-top: 15px;">
+      <label for="cacheExpiry">Cache duration:</label>
+      <select id="cacheExpiry">
+        <option value="300">5 minutes</option>
+        <option value="1800">30 minutes</option>
+        <option value="3600" selected>1 hour (recommended)</option>
+        <option value="21600">6 hours</option>
+        <option value="86400">24 hours</option>
+      </select>
+    </div>
+
+    <div class="performance-note" style="margin-top: 10px;">
+      <strong>Performance Impact:</strong><br>
+      &bull; <strong>Enabled:</strong> First load takes full time, subsequent loads are instant<br>
+      &bull; <strong>Disabled:</strong> Every load fetches fresh data from the WordPress site
+    </div>
+
+    <button id="clearCache" style="margin-top: 10px; padding: 6px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">
+      Clear All Cached Data
+    </button>
+  </div>
+
+  <script src="js/cache.js"></script>
+  <script src="js/options.js"></script>
+</body>
+</html>
