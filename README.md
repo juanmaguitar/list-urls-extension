@@ -2,6 +2,8 @@
 
 A powerful Chrome extension that extracts all public URLs from WordPress websites using the REST API. Perfect for SEO audits, content analysis, site migrations, or any task requiring comprehensive URL discovery.
 
+![extension](./images/extension.png)
+
 ## ✨ Features
 
 ### Core Functionality
@@ -57,9 +59,11 @@ A powerful Chrome extension that extracts all public URLs from WordPress website
 
 Access the settings page by **right-clicking the extension icon** in your browser toolbar and selecting **"Options"**, or go to `chrome://extensions/` and click "Details" → "Extension options".
 
-![WordPress URL Grabber Settings](https://github.com/user-attachments/assets/settings-page-preview.png)
+<!-- ![Extension Options](./images/options.png) -->
 
 ### Configuration Options
+
+![WordPress URL Grabber Settings](./images/settings-page.png)
 
 #### **🔍 URL Validation**
 Controls whether each URL is tested for accessibility before display:
