@@ -2,7 +2,7 @@
 
 A powerful Chrome extension that extracts all public URLs from WordPress websites using the REST API. Perfect for SEO audits, content analysis, site migrations, or any task requiring comprehensive URL discovery.
 
-![extension](./images/extension.png)
+![extension](./images/extension.png){width=60%}
 
 ## ✨ Features
 
