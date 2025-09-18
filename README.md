@@ -47,14 +47,46 @@ A powerful Chrome extension that extracts all public URLs from WordPress website
 ### Advanced Features
 - **🔍 Search**: Use the search box to filter URLs by keyword
 - **📋 Smart Copying**: Copy all URLs or just filtered results with one click
-- **⚙️ Configuration**: Right-click extension icon → Options to customize:
-  - URL validation (accuracy vs speed)
-  - Results per post type (100-5000 URLs)
-  - Caching duration (5 minutes to 24 hours)
+- **⚙️ Extensive Configuration**: Access settings through extension options
 
 ### Performance Modes
 - **Fast Mode** (validation disabled): 2-5 seconds, may include broken URLs
 - **Accurate Mode** (validation enabled): 30-60+ seconds, filters out inaccessible URLs
+
+## ⚙️ Extension Settings
+
+Access the settings page by **right-clicking the extension icon** in your browser toolbar and selecting **"Options"**, or go to `chrome://extensions/` and click "Details" → "Extension options".
+
+![WordPress URL Grabber Settings](https://github.com/user-attachments/assets/settings-page-preview.png)
+
+### Configuration Options
+
+#### **🔍 URL Validation**
+Controls whether each URL is tested for accessibility before display:
+- **✅ Enabled**: 30-60+ seconds processing, filters out broken/private URLs
+- **❌ Disabled**: 2-5 seconds processing, may include inaccessible URLs
+- **Default**: Disabled (prioritizes speed over accuracy)
+
+#### **📊 Results Limit**
+Sets maximum URLs fetched per post type:
+- **Options**: 100, 500, 1000, 2000, 5000 URLs
+- **Default**: 1000 URLs (recommended balance)
+- **Impact**: Higher limits = more complete results but longer processing time
+
+#### **💾 Result Caching**
+Enables intelligent caching for faster subsequent loads:
+- **Cache Toggle**: Enable/disable result caching
+- **Cache Duration**: 5 minutes to 24 hours
+- **Default**: Enabled with 1 hour expiration
+- **Benefits**: First load takes full time, subsequent loads are instant
+- **Clear Cache**: Button to manually clear all cached data
+
+### **Performance Impact Guide**
+| Setting | Speed | Completeness | Accuracy |
+|---------|-------|--------------|----------|
+| Validation ON + High Limits + Cache OFF | Very Slow | Excellent | Perfect |
+| Validation OFF + Medium Limits + Cache ON | Fast | Good | Good |
+| Validation OFF + Low Limits + Cache ON | Very Fast | Basic | Fair |
 
 ## 🎯 Use Cases
 

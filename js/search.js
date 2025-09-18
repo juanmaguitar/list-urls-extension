@@ -61,7 +61,7 @@ function filterUrlsBySector(sections, searchTerm) {
       section.classList.remove("hidden");
       urlList.classList.remove("collapsed");
       const toggleIcon = section.querySelector('.toggle-icon');
-      if (toggleIcon) toggleIcon.textContent = 'v';
+      if (toggleIcon) toggleIcon.textContent = '▼';
     } else {
       section.classList.add("hidden");
     }
@@ -72,9 +72,9 @@ function filterUrlsBySector(sections, searchTerm) {
 
 function updateSearchInfo(searchInfo, visibleCount, totalCount) {
   if (visibleCount === 0) {
-    searchInfo.textContent = "No URLs found matching your search";
+    searchInfo.textContent = "🚫 No URLs found matching your search";
   } else {
-    searchInfo.textContent = `Showing ${visibleCount} of ${totalCount} URLs`;
+    searchInfo.textContent = `📊 Showing ${visibleCount} of ${totalCount} URLs`;
   }
 }
 

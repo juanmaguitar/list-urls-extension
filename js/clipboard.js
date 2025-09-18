@@ -5,7 +5,7 @@ async function copyToClipboard(urls) {
 }
 
 function showCopySuccess(button) {
-  button.textContent = "Copied!";
+  button.textContent = "✅ Copied!";
   button.classList.add("success");
 
   setTimeout(() => {
@@ -14,7 +14,7 @@ function showCopySuccess(button) {
   }, 2000);
 }
 
-function showCopyError(button, message = "Copy failed") {
+function showCopyError(button, message = "❌ Copy failed") {
   button.textContent = message;
   setTimeout(() => {
     updateCopyButtonText();
@@ -86,9 +86,9 @@ function updateCopyButtonText() {
 
   if (!searchTerm) {
     const totalUrls = (window.allUrlsData || []).length;
-    copyButton.textContent = `Copy All URLs (${totalUrls})`;
+    copyButton.textContent = `📋 Copy All URLs (${totalUrls})`;
   } else {
     const visibleUrls = document.querySelectorAll(".url-list a:not(.hidden)").length;
-    copyButton.textContent = `Copy Filtered URLs (${visibleUrls})`;
+    copyButton.textContent = `📋 Copy Filtered URLs (${visibleUrls})`;
   }
 }

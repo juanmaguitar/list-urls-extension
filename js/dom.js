@@ -1,7 +1,42 @@
+function getPostTypeEmoji(postType) {
+  const emojiMap = {
+    'posts': '📝',
+    'pages': '📄',
+    'media': '🖼️',
+    'attachment': '📎',
+    'attachments': '📎',
+    'product': '🛍️',
+    'products': '🛍️',
+    'event': '📅',
+    'events': '📅',
+    'portfolio': '🎨',
+    'testimonial': '💬',
+    'testimonials': '💬',
+    'team': '👥',
+    'service': '🔧',
+    'services': '🔧',
+    'project': '📊',
+    'projects': '📊',
+    'news': '📰',
+    'article': '📰',
+    'articles': '📰',
+    'blog': '📝',
+    'faq': '❓',
+    'faqs': '❓',
+    'gallery': '🖼️',
+    'video': '🎥',
+    'videos': '🎥',
+    'download': '⬇️',
+    'downloads': '⬇️'
+  };
+
+  return emojiMap[postType.toLowerCase()] || '📋';
+}
+
 function createUrlCountElement(totalUrls) {
   const urlCount = document.createElement("div");
   urlCount.className = "url-count";
-  urlCount.textContent = `Found ${totalUrls} URLs total`;
+  urlCount.textContent = `🔗 Found ${totalUrls} URLs total`;
   return urlCount;
 }
 
@@ -11,9 +46,10 @@ function createSectionElement(postType, items) {
 
   const header = document.createElement("div");
   header.className = "section-header";
+  const postTypeEmoji = getPostTypeEmoji(postType);
   header.innerHTML = `
-    <span class="toggle-icon">v</span>
-    <span class="section-title">${postType} (${items.length} items)</span>
+    <span class="toggle-icon">▼</span>
+    <span class="section-title">${postTypeEmoji} ${postType} (${items.length} items)</span>
   `;
 
   const urlList = document.createElement("div");
@@ -41,10 +77,10 @@ function toggleSection(section) {
 
   if (urlList.classList.contains('collapsed')) {
     urlList.classList.remove('collapsed');
-    toggleIcon.textContent = 'v';
+    toggleIcon.textContent = '▼';
   } else {
     urlList.classList.add('collapsed');
-    toggleIcon.textContent = '>';
+    toggleIcon.textContent = '▶';
   }
 }
 
@@ -67,8 +103,8 @@ async function renderUrlsData(urlsData, cacheStats = null) {
   const isValidationEnabled = await shouldValidateUrls();
   validationInfo.className = isValidationEnabled ? "validation-info validated" : "validation-info not-validated";
   validationInfo.textContent = isValidationEnabled
-    ? "✓ URLs validated for accessibility"
-    : "⚠ URLs not validated (faster but may include broken links)";
+    ? "✅ URLs validated for accessibility"
+    : "⚠️ URLs not validated (faster but may include broken links)";
 
   // Add cache status info
   const cacheInfo = document.createElement("div");
@@ -120,7 +156,7 @@ function showControls(totalUrls) {
 
   if (totalUrls > 0) {
     copyButton.style.display = "block";
-    copyButton.textContent = `Copy All URLs (${totalUrls})`;
+    copyButton.textContent = `📋 Copy All URLs (${totalUrls})`;
     searchContainer.style.display = "block";
   }
 }

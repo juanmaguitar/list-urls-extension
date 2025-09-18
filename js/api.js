@@ -99,7 +99,7 @@ async function validateUrls(items, postType) {
 
     if (totalItems > 10) {
       // Only show progress for larger sets to avoid spam
-      showStatus(`Validating ${postType} URLs... (${i + 1}/${totalItems})`);
+      showStatus(`🔍 Validating ${postType} URLs... (${i + 1}/${totalItems})`);
     }
 
     const isValid = await validateUrl(item.link);
@@ -127,7 +127,7 @@ async function fetchAllItemsForPostType(baseURL, postType, desiredLimit) {
     const remainingNeeded = desiredLimit - totalFetched;
     const currentPerPage = Math.min(perPage, remainingNeeded);
 
-    showStatus(`Fetching ${postType} page ${page} (${totalFetched}+ items so far)...`);
+    showStatus(`📄 Fetching ${postType} page ${page} (${totalFetched}+ items so far)...`);
 
     try {
       const items = await fetchJSON(
@@ -167,7 +167,7 @@ async function fetchAllItemsForPostType(baseURL, postType, desiredLimit) {
 }
 
 async function fetchWordPressData(baseURL) {
-  showStatus("Checking for cached data...");
+  showStatus("💾 Checking for cached data...");
 
   const typesRes = await fetchJSON(`${baseURL}${window.wpRestApiBasePath}wp/v2/types`);
   const urlsData = [];
@@ -187,7 +187,7 @@ async function fetchWordPressData(baseURL) {
     const cachedPostTypeData = await getCachedPostType(baseURL, postType);
 
     if (cachedPostTypeData) {
-      showStatus(`Loading cached ${postType} (${i + 1}/${postTypes.length})...`);
+      showStatus(`💾 Loading cached ${postType} (${i + 1}/${postTypes.length})...`);
       urlsData.push(cachedPostTypeData);
       cachedCount++;
       console.log(`[DEBUG] Using cached data for ${postType} (${cachedPostTypeData.count} items)`);
@@ -196,7 +196,7 @@ async function fetchWordPressData(baseURL) {
 
     // Fetch fresh data for this post type
     freshCount++;
-    showStatus(`Fetching ${postType} (${i + 1}/${postTypes.length})...`);
+    showStatus(`📡 Fetching ${postType} (${i + 1}/${postTypes.length})...`);
 
     try {
       const items = await fetchAllItemsForPostType(baseURL, postType, perPageLimit);
@@ -209,7 +209,7 @@ async function fetchWordPressData(baseURL) {
       let processedItems;
 
       if (validateEnabled) {
-        showStatus(`Validating ${items.length} URLs for ${postType}...`);
+        showStatus(`✅ Validating ${items.length} URLs for ${postType}...`);
         console.log(`[DEBUG] Validating URLs for post type: ${postType}`);
         processedItems = await validateUrls(items, postType);
 
